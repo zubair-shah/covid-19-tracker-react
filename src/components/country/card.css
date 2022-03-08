@@ -1,0 +1,26 @@
+.container{
+    width: 80%;
+    margin: auto;
+}
+.heading{
+    text-align: center;
+    margin-top: 40px;
+}
+.css-1orzy9s{
+    width: 20%;
+    display: inline-block;
+    margin-right: 20px;
+    background-color: rgb(0 0 0 / 12%);
+}
+.input-search{
+    padding: 12px;
+    width: 205px;
+    border: none;
+    border-radius: 3px;
+    /* box-shadow: 1px 1px 4px 1px; */
+    background: rgb(0 0 0 / 12%);
+    text-align: center;
+}
+.input-search :focus{
+    border: none;
+}
