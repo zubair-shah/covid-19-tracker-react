@@ -69,8 +69,8 @@ export default function FullWidthTabs() {
           aria-label="full width tabs example"
         >
           <Tab label="GLOBAL DATA" {...a11yProps(0)} />
-          <Tab label="CONTINENT WISE DATA" {...a11yProps(1)} />
-          <Tab label="COUNTRY WISE DATA" {...a11yProps(2)} />
+          {/* <Tab label="CONTINENT WISE DATA" {...a11yProps(1)} /> */}
+          <Tab label="COUNTRY WISE DATA" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -81,10 +81,10 @@ export default function FullWidthTabs() {
         <TabPanel value={value} index={0} dir={theme.direction}>
         <GlobalPage />
         </TabPanel>
+        {/* <TabPanel value={value} index={1} dir={theme.direction}>
+         <ContinentPage /> 
+        </TabPanel>*/}
         <TabPanel value={value} index={1} dir={theme.direction}>
-         <ContinentPage />
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
           <CountryPage />
         </TabPanel>
       </SwipeableViews>

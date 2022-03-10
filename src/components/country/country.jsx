@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import { Button } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import CountUp from 'react-countup';
 import './card.css'
 import axios from 'axios'
 
@@ -50,17 +51,23 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Card() {
   //tabbing
-  const [value, setValue] = React.useState('one');
+  // const [value, setValue] = React.useState('one');
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
   //tabbing-end
   let countrySearch = useRef(null);
+
    const [countryData , setCountryData] = useState({});
    const [search , setSearch] = useState(null);
-   console.log(countryData)
+   const toCapitalCase = (search) => {
+    return setSearch(search.charAt(0).toUpperCase() + search.slice(1)) ;
+};
+
+
+  //  console.log(search)
 
   useEffect(() =>{
        async function getData(){
@@ -72,37 +79,55 @@ export default function Card() {
           }
         })
          let data = await response.json();
-        //  console.log(data[3])
+          console.log(data)
          delete data[2].id
+         delete data[0]
          delete data[1]
-         delete data[2]["Case_Fatality_Rate"]
-         delete data["Country"]
-         delete data["Infection_Risk"]
-         delete data["Population"]
-         delete data["Test_Percentage"]
-         delete data["Tests_1M_Pop"]
-         delete data["ThreeLetterSymbol"]
-         delete data["Recovery_Proporation"]
-         delete data["rank"]
-         delete data["id"]
-         delete data["TwoLetterSymbol"]
-         delete data["Continent"]
-         delete data["TotalTests"]
-         delete data["one_Caseevery_X_ppl"]
-         delete data["one_Deathevery_X_ppl"]
-         delete data["one_Testevery_X_ppl"]
-      
-         let filterCountry = data.filter((newCountry) => {
+        //  delete data[2]["Case_Fatality_Rate"]
+        //  delete data["Country"]
+        //  delete data["Infection_Risk"]
+        //  delete data["Population"]
+        //  delete data["Test_Percentage"]
+        //  delete data["Tests_1M_Pop"]
+        //  delete data["ThreeLetterSymbol"]
+        //  delete data["Recovery_Proporation"]
+        //  delete data["rank"]
+        //  delete data["id"]
+        //  delete data["TwoLetterSymbol"]
+        //  delete data["Continent"]
+        //  delete data["TotalTests"]
+        //  delete data["one_Caseevery_X_ppl"]
+        //  delete data["one_Deathevery_X_ppl"]
+        //  delete data["one_Testevery_X_ppl"]
+       
+         var input = document.getElementById("myInput");
+         input.addEventListener("keyup", function(event) {
+         if (event.keyCode === 13) {
+         event.preventDefault();
+         document.getElementById("myBtn").click();
+  }
+});
 
+
+         let filterCountry = data.filter((newCountry) => {
              return newCountry.Country === search
          })
-          console.log(filterCountry.search)
+         console.log(filterCountry)
+         let newCountry = (filterCountry.map((newC) => newC.Country))
+           console.log(newCountry)
         if(search === null){
           setCountryData(data[2])
         }
-       else if( search === filterCountry[0] ){
-         setCountryData(filterCountry)
-       }
+       
+        else if( search === newCountry.toString() ){
+          delete filterCountry[0].id
+        setCountryData(filterCountry[0])
+        console.log('done')
+        }
+        else{
+          alert("Invalid Name plz enter correct Country Name")
+          setCountryData(data[2])
+        }
 
 
        }
@@ -127,12 +152,12 @@ export default function Card() {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <input type="text"ref={countrySearch} className="input-search" placeholder="Search for other country"   />
+            <input type="text" id='myInput' ref={countrySearch} className="input-search" placeholder="Search for other country"   />
           
           </Search>
          
-          <Button className='search-btn' variant="contained" color="success" size="medium" onClick={() =>{
-            setSearch(countrySearch.current.value)
+          <Button className='search-btn' variant="contained" id='myBtn' color="success" size="medium" onClick={() =>{
+             toCapitalCase(countrySearch.current.value)
           } }>
               search
             </Button>

@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import './card.css'
+import './card.css';
 import axios from 'axios'
 
 
@@ -42,6 +42,7 @@ export default function Card() {
           }
         })
          let data = await response.json();
+         console.log(data)
          delete data[0]["Case_Fatality_Rate"]
          delete data[0]["Country"]
          delete data[0]["Infection_Risk"]
