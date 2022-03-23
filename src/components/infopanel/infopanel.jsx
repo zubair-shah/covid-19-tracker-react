@@ -81,7 +81,7 @@ export default function FullWidthTabs() {
         <TabPanel value={value} index={0} dir={theme.direction}>
         <GlobalPage />
         </TabPanel>
-        {/* <TabPanel value={value} index={1} dir={theme.direction}>
+         {/*<TabPanel value={value} index={} dir={theme.direction}>
          <ContinentPage /> 
         </TabPanel>*/}
         <TabPanel value={value} index={1} dir={theme.direction}>

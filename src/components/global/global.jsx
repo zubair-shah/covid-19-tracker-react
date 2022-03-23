@@ -5,8 +5,9 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
+import CountUp from 'react-countup';
 import Tab from '@mui/material/Tab';
-import './card.css';
+import './card.css'
 import axios from 'axios'
 
 
@@ -42,7 +43,6 @@ export default function Card() {
           }
         })
          let data = await response.json();
-         console.log(data)
          delete data[0]["Case_Fatality_Rate"]
          delete data[0]["Country"]
          delete data[0]["Infection_Risk"]
@@ -87,7 +87,10 @@ export default function Card() {
             <Grid item xs={12} sm={6} md={4} lg={3} key={ind}>
             <Item>
              <h2> {val.replace(/_/g , " ").toUpperCase()}</h2>
-             <h3>{globalData[val]}</h3>
+             <h3>
+                <CountUp start={0} end={globalData[val]} duration={3.5}  />
+             {/* {globalData[val]} */}
+             </h3>
               </Item>
           </Grid>
           )

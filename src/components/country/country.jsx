@@ -59,7 +59,7 @@ export default function Card() {
 
   //tabbing-end
   let countrySearch = useRef(null);
-
+   const [countryName , setCountryName] = useState(["USA"])
    const [countryData , setCountryData] = useState({});
    const [search , setSearch] = useState(null);
    const toCapitalCase = (search) => {
@@ -79,26 +79,15 @@ export default function Card() {
           }
         })
          let data = await response.json();
-          console.log(data)
+         console.log(data)
          delete data[2].id
          delete data[0]
          delete data[1]
-        //  delete data[2]["Case_Fatality_Rate"]
-        //  delete data["Country"]
-        //  delete data["Infection_Risk"]
-        //  delete data["Population"]
-        //  delete data["Test_Percentage"]
-        //  delete data["Tests_1M_Pop"]
-        //  delete data["ThreeLetterSymbol"]
-        //  delete data["Recovery_Proporation"]
-        //  delete data["rank"]
-        //  delete data["id"]
-        //  delete data["TwoLetterSymbol"]
-        //  delete data["Continent"]
-        //  delete data["TotalTests"]
-        //  delete data["one_Caseevery_X_ppl"]
-        //  delete data["one_Deathevery_X_ppl"]
-        //  delete data["one_Testevery_X_ppl"]
+         delete data[2].Country
+         delete data[2].Continent
+         delete data[2].TwoLetterSymbol
+         delete data[2].ThreeLetterSymbol
+       
        
          var input = document.getElementById("myInput");
          input.addEventListener("keyup", function(event) {
@@ -112,21 +101,28 @@ export default function Card() {
          let filterCountry = data.filter((newCountry) => {
              return newCountry.Country === search
          })
-         console.log(filterCountry)
+        
          let newCountry = (filterCountry.map((newC) => newC.Country))
-           console.log(newCountry)
+         
         if(search === null){
           setCountryData(data[2])
+          
         }
        
         else if( search === newCountry.toString() ){
           delete filterCountry[0].id
+           delete filterCountry[0].Country
+          delete filterCountry[0].Continent
+          delete filterCountry[0].TwoLetterSymbol
+          delete filterCountry[0].ThreeLetterSymbol
         setCountryData(filterCountry[0])
-        console.log('done')
+         setCountryName(newCountry)
+      
         }
         else{
           alert("Invalid Name plz enter correct Country Name")
           setCountryData(data[2])
+          setCountryName(["USA"])
         }
 
 
@@ -145,7 +141,7 @@ export default function Card() {
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
             <h1>
-        {countryData.Country} Covid 19 Updates
+        {countryName} Covid 19 Updates
          </h1>
           </Typography>
           <Search>
@@ -158,6 +154,7 @@ export default function Card() {
          
           <Button className='search-btn' variant="contained" id='myBtn' color="success" size="medium" onClick={() =>{
              toCapitalCase(countrySearch.current.value)
+             
           } }>
               search
             </Button>
@@ -168,8 +165,12 @@ export default function Card() {
           return(
             <Grid item xs={12} sm={6} md={4} lg={3} key={ind}>
             <Item>
-             <h2> {val.replace(/_/g , " ").toUpperCase()}</h2>
-             <h3>{countryData[val]}</h3>
+             <h2 sx={{Color:"balck"}}>
+                {val.replace(/_/g , " ").toUpperCase()}</h2>
+             <h3>
+               <CountUp start={0} end={countryData[val]}  delay={1} duration={5.5}  />
+               {/* {countryData[val]} */}
+             </h3>
               </Item>
           </Grid>
           )
